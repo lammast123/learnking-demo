@@ -1,0 +1,29 @@
+@model LearnKing.Api.Models.TaskItem
+@{
+    ViewData["Title"] = "Edit Task";
+}
+<h2>Edit</h2>
+<form method="post">
+  <input type="hidden" name="Id" value="@Model.Id" />
+  <div class="mb-3">
+    <label class="form-label">Title</label>
+    <input name="Title" class="form-control" value="@Model.Title" required maxlength="200" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea name="Description" class="form-control">@Model.Description</textarea>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Status</label>
+    <select name="Status" class="form-select">
+      <option value="0" selected="@(Model.Status==0)">Todo</option>
+      <option value="1" selected="@(Model.Status==1)">InProgress</option>
+      <option value="2" selected="@(Model.Status==2)">Done</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Due date</label>
+    <input type="date" name="DueDate" class="form-control" value="@(Model.DueDate?.ToString("yyyy-MM-dd"))" />
+  </div>
+  <button class="btn btn-primary">Save</button>
+</form>
