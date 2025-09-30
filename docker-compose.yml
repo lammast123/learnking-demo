@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_learnking
+    environment:
+      MYSQL_ROOT_PASSWORD: 11111
+      MYSQL_DATABASE: learnkingdb
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: learnkingapi-adminer-1
+    ports:
+      - "8080:8080"
+
+  webapp:
+    build: .
+    container_name: learnkingapi-web
+    depends_on:
+      - mysql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5000:5000"
+
+volumes:
+  mysql_data:

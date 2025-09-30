@@ -1,26 +1,32 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LearnKing.Api.Models;
-
-public class TaskItem
+namespace LearnKing.Api.Models
 {
-    public int Id { get; set; }
+    public enum TaskStatus
+    {
+        Pending = 0,
+        Completed = 1
+    }
 
-    [Required, StringLength(200)]
-    public string Title { get; set; } = string.Empty;
+    public class TaskItem
+    {
+        public int Id { get; set; }
 
-    public string? Description { get; set; }
+        [Required, MaxLength(200)]
+        public string Title { get; set; } = string.Empty;
 
-    public TaskStatus Status { get; set; } = TaskStatus.Todo;
+        public string? Description { get; set; }
 
-    public DateTime? DueDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? DueDate { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-}
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-public enum TaskStatus
-{
-    Todo = 0,
-    InProgress = 1,
-    Done = 2
+        // ✅ bool cho dễ dùng
+        public bool IsCompleted { get; set; } = false;
+
+        // ✅ Enum để quản lý trạng thái
+        public TaskStatus Status { get; set; } = TaskStatus.Pending;
+    }
 }
